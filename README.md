@@ -28,10 +28,51 @@ for homework
 ![](pic/deployment.PNG)
 ## 7. 程式設計
 ### 第1步：安裝相機
-### 第2步：安裝opencv
+### 第2步：安裝OpenCV
 使用指令下達 $pip3 install opencv-python
 ### 第3步：人臉檢測
 原先的專案規劃為丟菸蒂檢舉達人，因此而開始使用研究Haar Cascade 分類器做香菸偵測，而網路上大多的資源為人臉偵測，我也拿人臉偵測做練習，而後嘗試使用香菸偵測時，發現形狀太小辨識度不佳，故轉換專案題目，執行老闆要求的專案-人臉辨識。
+在執行人臉偵測時，發現3個問題：
+<br>1.多數的網站均使用VideoCapture ( 0 )作讀取，實際使用發現只能適用於 PiCam，藉由同學作業參考資料中，使用舵機雲台追蹤臉孔[[2]](https://github.com/ch-tseng/PanTilt/blob/master/main.py)，發現可以使用VideoStream，為此要執行指令下達$pip3 install imutils
+<br>2.人臉偵測於Rasberry Pi 3未有即時偵測畫面，經網路搜尋發現是VNC的問題
+<br>3.問題1當中參考資料使用vs = VideoStream(usePiCamera=1).start()，執行後發現偵測畫面太大無法顯示，經搜尋後[[3]](https://www.twblogs.net/a/5db2cffebd9eee310d9fff12)調整為vs = VideoStream(usePiCamera=True, resolution=(640,480)).start()
+```python
+import RPi.GPIO as GPIO
+import numpy as np
+import cv2
+from picamera import PiCamera
+from imutils.video import VideoStream
+import imutils
+import time
+GPIO.setmode(GPIO.BCM)
+
+led_green = 23
+
+vs = VideoStream(usePiCamera=True, resolution=(640,480)).start()
+time.sleep(2.0)
+
+face_cascade = cv2.CascadeClassifier('/home/pi/Desktop/opencv/data/haarcascades/haarcascade_frontalface_alt.xml')
+
+while True:
+    frame = vs.read()
+    frame = frame.astype('uint8')
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(30,30))
+    for (x,y,w,h) in faces:
+        cv2.rectangle(frame,(x,y),(x+w,y+h),(0,255,0),2)
+
+    cv2.imshow('Frame',frame)
+    key= cv2.waitKey(1) & 0xFF
+    
+    if key == ord("q"):
+        break
+(h,w,d)= frame.shape
+print("width={}, height={},depth={}".format(w,h,d))
+
+vs.stop()
+cv2.destroyAllWindows()
+print('finish')
+```
 ### 第4步：人臉數據蒐集
 ### 第5步：人臉模型訓練
 ### 第6步：人臉辨識
@@ -41,4 +82,6 @@ for homework
 https://youtu.be/Sn16_KW4zAc
 ## 9. 可以改進或其他發想
 ## 10.參考資料
-https://github.com/kunalyelne/Face-Recognition-using-Raspberry-Pi
+[1]https://github.com/kunalyelne/Face-Recognition-using-Raspberry-Pi
+<br>[2]https://github.com/ch-tseng/PanTilt/blob/master/main.py
+<br>[3]https://www.twblogs.net/a/5db2cffebd9eee310d9fff12
