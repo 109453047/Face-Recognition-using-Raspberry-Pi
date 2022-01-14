@@ -29,13 +29,13 @@ for homework
 ## 7. 程式設計
 ### 第1步：安裝相機
 ### 第2步：安裝OpenCV
-使用指令下達 $pip3 install opencv-python
+使用指令下達 ```$pip3 install opencv-python```
 ### 第3步：人臉檢測
 原先的專案規劃為丟菸蒂檢舉達人，因此而開始使用研究Haar Cascade 分類器做香菸偵測，而網路上大多的資源為人臉偵測，我也拿人臉偵測做練習，而後嘗試使用香菸偵測時，發現形狀太小辨識度不佳，故轉換專案題目，執行老闆要求的專案-人臉辨識。
 在執行人臉偵測時，發現3個問題：
-<br>1.多數的網站均使用VideoCapture ( 0 )作讀取，實際使用發現只能適用於 PiCam，藉由同學作業參考資料中，使用舵機雲台追蹤臉孔[[2]](https://github.com/ch-tseng/PanTilt/blob/master/main.py)，發現可以使用VideoStream，為此要執行指令下達$pip3 install imutils
+<br>1.多數的網站均使用VideoCapture ( 0 )作讀取，實際使用發現只能適用於 PiCam，藉由同學作業參考資料中，使用舵機雲台追蹤臉孔[[2]](https://github.com/ch-tseng/PanTilt/blob/master/main.py)，發現可以使用VideoStream，為此要執行指令下達```$pip3 install imutils```
 <br>2.人臉偵測於Rasberry Pi 3未有即時偵測畫面，經網路搜尋發現是VNC的問題
-<br>3.問題1當中參考資料使用vs = VideoStream(usePiCamera=1).start()，執行後發現偵測畫面太大無法顯示，經搜尋後[[3]](https://www.twblogs.net/a/5db2cffebd9eee310d9fff12)調整為vs = VideoStream(usePiCamera=True, resolution=(640,480)).start()
+<br>3.問題1當中參考資料使用```vs = VideoStream(usePiCamera=1).start()```，執行後發現偵測畫面太大無法顯示，經搜尋後[[3]](https://www.twblogs.net/a/5db2cffebd9eee310d9fff12)調整為```vs = VideoStream(usePiCamera=True, resolution=(640,480)).start()```
 ```python
 import RPi.GPIO as GPIO
 import numpy as np
