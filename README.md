@@ -1,5 +1,5 @@
 # Face-Recognition-using-Raspberry-Pi
-IoT & Data Science homework
+IoT & Big Data Analysis homework
 ## 1. 關於專案
 將鏡頭放在閘門入口，透過人臉辨識確認是否為已存取之人員，若確認為已存取人員將發出Do-re-mi暗示可以通過，若辨識非存取人員則發出警告聲響，並拍照存取入侵者頭像。
 
@@ -20,14 +20,15 @@ IoT & Data Science homework
 * 蜂鳴器
 * 筆電
 ## 5. 材料細節
-* 鏡頭
+* 鏡頭(NOIR Camera)
 ![](pic/camera.jpg)
 * 蜂鳴器
 ![](pic/buzzer1.jpg)
 ## 6. 線路設計,指令表與實體照片
 ![](pic/deployment.PNG)
 ## 7. 程式設計
-### 第1步：安裝相機
+### 第1步：安裝樹梅派與相機
+https://ithelp.ithome.com.tw/articles/10235135
 ### 第2步：安裝OpenCV
 使用指令下達 ```$pip3 install opencv-python```
 ### 第3步：人臉檢測
