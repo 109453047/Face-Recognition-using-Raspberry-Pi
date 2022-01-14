@@ -27,16 +27,36 @@ IoT & Big Data Analysis homework
 ## 6. 線路設計,指令表與實體照片
 ![](pic/deployment.PNG)
 ## 7. 程式設計
-### 第1步：安裝樹梅派與相機
-https://ithelp.ithome.com.tw/articles/10235135
+### 第1步：安裝樹梅派
+1.格式化SD卡：
+▪ SD 卡格式化程序 - https://www.sdcard.org/downloads/formatter_4/
+<br>2. 安裝操作系統鏡像：
+▪ https://www.raspberrypi.org/documentation/installation/installing-images/README.md
+<br>3. 編輯視頻輸出的config.txt：
+<br>▪ 首先你需要一個文本編輯工具。 Notepad++ 是一個不錯的選擇
+<br>▪ https://www.raspberrypi.org/documentation/configuration/config-txt/video.md
+<br>▪ 取消註釋 hdmi_group 並將其設置為 DMT（顯示監視器計時）標準。
+<br>▪ 取消註釋 hdmi_mode 並將其設置為 1024x768，分辨率為 60Hz。
+<br>▪ 取消註釋 hdmi_drive 並將其設置為普通 hdmi 模式。
+<br>4. 首次啟動 Raspberry Pi：
+▪ 確保正確設置硬件。
+https://www.raspberrypi.org/learning/hardware-guide/quickstart/
+<br>5. 使用默認用戶名和密碼登錄：
+▪ 詳情可參考
+https://www.raspberrypi.org/documentation/linux/usage/users.md
+<br>6. 更改您的鍵盤佈局，然後重新啟動：
+▪ 詳情可參考https://thepihut.com/blogs/raspberry-pi-tutorials/25556740-changing-the-raspberry-pi-keyboard-layout
+<br>7. 更改主機名稱：
+▪ 此步驟請參考官方文檔：
+https://www.raspberrypi.org/documentation/configuration/raspi-config.md
 ### 第2步：安裝OpenCV
 使用指令下達 ```$pip3 install opencv-python```
 ### 第3步：人臉檢測
-原先的專案規劃為「丟菸蒂檢舉達人」，因此開始研究Haar Cascade 分類器，先拿網路上最多資訊的人臉偵測做練習，而後嘗試使用香菸偵測時，發現形狀太小辨識度不佳，難過的轉換專案題目，執行公司老闆要求的專案-人臉辨識。
+原先的專案規劃為「丟菸蒂檢舉達人」，因此開始研究Haar Cascade 分類器，先拿網路上最多資訊的人臉偵測做練習[[1]](https://www.raspberrypi.com.tw/tag/haar-feature-based-cascade-classifier/)，而後嘗試使用香菸偵測時，發現形狀太小辨識度不佳，難過的轉換專案題目，執行公司老闆要求的專案-人臉辨識。
 <br> 起初在執行時遇到許多問題：
 <br>1.多數的網站均使用VideoCapture ( 0 )作讀取，實際使用發現只能適用於 PiCam，藉由同學作業參考資料中，使用舵機雲台追蹤臉孔[[2]](https://github.com/ch-tseng/PanTilt/blob/master/main.py)，發現可以使用VideoStream，為此要執行指令下達```$pip3 install imutils```
-<br>2.人臉偵測於Rasberry Pi 3未有即時偵測畫面，經網路搜尋發現是VNC viewer的問題，故調整Rasberry Pi 3上VNC viewer的設定
-<br>3.問題1當中參考資料使用```vs = VideoStream(usePiCamera=1).start()```，執行後發現偵測畫面太大無法顯示，經搜尋後[[3]](https://www.twblogs.net/a/5db2cffebd9eee310d9fff12)調整為```vs = VideoStream(usePiCamera=True, resolution=(640,480)).start()```
+<br>2.人臉偵測於Rasberry Pi 3未有即時偵測畫面，經網路搜尋發現是VNC viewer的問題，故調整Rasberry Pi 3上VNC viewer的設定[[3]](https://help.edovia.com/hc/en-us/articles/115005376088-Configuring-a-Raspberry-Pi-for-Remote-Access)
+<br>3.問題1當中參考資料使用```vs = VideoStream(usePiCamera=1).start()```，執行後發現偵測畫面太大無法顯示，經搜尋後[[4]](https://www.twblogs.net/a/5db2cffebd9eee310d9fff12)調整為```vs = VideoStream(usePiCamera=True, resolution=(640,480)).start()```
 ```python
 import RPi.GPIO as GPIO
 import numpy as np
@@ -75,7 +95,7 @@ cv2.destroyAllWindows()
 print('finish')
 ```
 ### 第4步：人臉數據蒐集
-至此步驟起，參考github上使用樹梅派做人臉辨識[[4]](https://github.com/kunalyelne/Face-Recognition-using-Raspberry-Pi)，在此步驟中，可以讓用戶拍照，蒐集欲執行人臉辨識的照片。
+至此步驟起，參考github上使用樹梅派做人臉辨識[[5]](https://github.com/kunalyelne/Face-Recognition-using-Raspberry-Pi)，在此步驟中，可以讓用戶拍照，蒐集欲執行人臉辨識的照片。
 <br>在人臉數據蒐集時也發現問題，原先的程式碼face_id只能為整數無法紀錄對應的人名，為了方便公司管理旅客名單，因此我在此步驟增加一欄```user = input('\n Enter user name end press <Enter> ==>  ')```，讓每張蒐集的照片名稱中，顯示face_id對應的用戶名稱。
 ```python
 import RPi.GPIO as GPIO
@@ -119,7 +139,7 @@ print('finish')
 ```
 ### 第5步：模型訓練
 藉由已蒐集的數據集，訓練人臉辨識模型，並存取在```.yml```文件當中，供第6步驟人臉辨識使用
-<br>在跑程式時曾發生一個錯誤```module 'cv2.cv2' has no attribute 'face'```，經查詢後[[5]](https://blog.csdn.net/hopena/article/details/91350271)須先將OpenCV及OpenCV contrib卸載```pip uninstall opencv-contrib-python```、```pip uninstall opencv-python```，再重新執行下載```pip install opencv-python```、```pip install opencv-contrib-python```才能解決問題。
+<br>在跑程式時曾發生一個錯誤```module 'cv2.cv2' has no attribute 'face'```，經查詢後[[6]](https://blog.csdn.net/hopena/article/details/91350271)須先將OpenCV及OpenCV contrib卸載```pip uninstall opencv-contrib-python```、```pip uninstall opencv-python```，再重新執行下載```pip install opencv-python```、```pip install opencv-contrib-python```才能解決問題。
 ```python
 import cv2
 import numpy as np
@@ -158,7 +178,7 @@ print("\n [INFO] {0} faces trained. Exiting Program".format(len(np.unique(ids)))
 <br>在此步驟中，新增了3個功能：
 <br>1.為避免辨識成功或失敗只是偶然，故增加程式碼紀錄成功或失敗次數，當達到一定次數才判定為成功或失敗
 <br>2.增加程式碼辨識失敗一定次數後，拍攝入侵者的照片，並記錄當下時間```cv2.imwrite('/home/pi/Desktop/STUDY/intruder/%s.jpg' % ptime,img) #if found instruder will take photo```
-<br>3.增加蜂鳴器在辨識成功時發出Do-re-mi聲響[[6]](https://sites.google.com/site/zsgititit/home/raspberry-shu-mei-pai/raspberry-shi-yong-fengbuzzier)及辨識失敗時發出短鳴[[7]](https://www.gushiciku.cn/pl/g7Iv/zh-tw)的程式碼
+<br>3.增加蜂鳴器在辨識成功時發出Do-re-mi聲響[[7]](https://sites.google.com/site/zsgititit/home/raspberry-shu-mei-pai/raspberry-shi-yong-fengbuzzier)及辨識失敗時發出短鳴[[8]](https://www.gushiciku.cn/pl/g7Iv/zh-tw)的程式碼
 ```python
 import RPi.GPIO as GPIO
 import cv2
@@ -272,10 +292,11 @@ https://youtu.be/Sn16_KW4zAc
 * 因旅客曾反映目前票卡過閘感應失敗時的叫聲太大，因此在本專案設計時以不擾民之聲響為主，但可能會使現場人員未發現侵入者，故之後可以再做討論調整。
 * 依據規劃提供定期票旅客使用人臉辨識，每日都可能有當日新加入或需刪除名單，可思考自動更新訓練模型的方式
 ## 10.參考資料
-[1]
+<br>[1]https://www.raspberrypi.com.tw/tag/haar-feature-based-cascade-classifier/
 <br>[2]https://github.com/ch-tseng/PanTilt/blob/master/main.py
-<br>[3]https://github.com/kunalyelne/Face-Recognition-using-Raspberry-Pi
-<br>[4]https://www.twblogs.net/a/5db2cffebd9eee310d9fff12
-<br>[5]https://blog.csdn.net/hopena/article/details/91350271
-<br>[6]https://sites.google.com/site/zsgititit/home/raspberry-shu-mei-pai/raspberry-shi-yong-fengbuzzier
-<br>[7]https://www.gushiciku.cn/pl/g7Iv/zh-tw
+<br>[3]https://help.edovia.com/hc/en-us/articles/115005376088-Configuring-a-Raspberry-Pi-for-Remote-Access
+<br>[4]https://github.com/kunalyelne/Face-Recognition-using-Raspberry-Pi
+<br>[5]https://www.twblogs.net/a/5db2cffebd9eee310d9fff12
+<br>[6]https://blog.csdn.net/hopena/article/details/91350271
+<br>[7]https://sites.google.com/site/zsgititit/home/raspberry-shu-mei-pai/raspberry-shi-yong-fengbuzzier
+<br>[8]https://www.gushiciku.cn/pl/g7Iv/zh-tw
