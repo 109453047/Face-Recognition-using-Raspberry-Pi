@@ -10,8 +10,8 @@ for homework
 人臉辨識因涉及隱私權，僅提供定期票購買旅客使用，可供旅客30、60、90、120日內搭乘使用，此方式可避免旅客定期票遺失、刷錯卡、一票多人共用等情形。
 
 支付定期費用的旅客使用相機拍照後，將照片存取在資料庫中，當旅客欲搭乘捷運於出入口感應人臉，透過人臉辨識確認是否為已存取人員，若為存取人員則透過蜂鳴器發出do-re-me聲響，若非存取人員則發出告警聲響，並拍照存取入侵者頭像，可公布在車站避免旅客違規闖入。
-![](file:///C:/Users/T00874/Desktop/%E5%85%AC%E5%8F%B8%E8%AA%AA%E6%98%8E.jpg)
 
+![](pic/entrance.jpg)
 ## 4. 專案所需實體材料
 * 一個Rasberry Pi 3
 * 一個Raspberry Pi 樹莓派UPS 鋰電池擴充板USB 電源供應模組行動電源
@@ -21,10 +21,15 @@ for homework
 * 蜂鳴器
 * 筆電
 ## 5. 材料細節
-L298N馬達驅動模組
+* 鏡頭
+![](pic/camera.jpg)
+* 蜂鳴器
+![](pic/buzzer1.jpg)
 ## 6. 線路設計,指令表與實體照片
+![](pic/deployment.PNG)
 ## 7. 程式設計
 ## 8. 影片呈現連結
+https://youtu.be/Sn16_KW4zAc
 ## 9. 可以改進或其他發想
 ## 10.參考資料
 https://github.com/kunalyelne/Face-Recognition-using-Raspberry-Pi
