@@ -1,5 +1,5 @@
 # Face-Recognition-using-Raspberry-Pi
-for homework
+IoT & Data Science homework
 ## 1. 關於專案
 將鏡頭放在閘門入口，透過人臉辨識確認是否為已存取之人員，若確認為已存取人員將發出Do-re-mi暗示可以通過，若辨識非存取人員則發出警告聲響，並拍照存取入侵者。
 
@@ -74,7 +74,7 @@ cv2.destroyAllWindows()
 print('finish')
 ```
 ### 第4步：人臉數據蒐集
-至此步驟起，參考github上使用樹梅派做人臉辨識[[1]](https://github.com/kunalyelne/Face-Recognition-using-Raspberry-Pi)，在此步驟中，可以讓用戶拍照，蒐集欲執行人臉辨識的照片。
+至此步驟起，參考github上使用樹梅派做人臉辨識[[4]](https://github.com/kunalyelne/Face-Recognition-using-Raspberry-Pi)，在此步驟中，可以讓用戶拍照，蒐集欲執行人臉辨識的照片。
 <br>在人臉數據蒐集時也發現問題，原先的程式碼face_id只能為整數無法紀錄對應的人名，為了方便公司管理旅客名單，因此我在此步驟增加一欄```user = input('\n Enter user name end press <Enter> ==>  ')```，讓每張蒐集的照片名稱中，顯示face_id對應的用戶名稱。
 ```python
 import RPi.GPIO as GPIO
@@ -155,8 +155,8 @@ print("\n [INFO] {0} faces trained. Exiting Program".format(len(np.unique(ids)))
 最後執行人臉辨識，藉由前一步訓練的模型，辨識新偵測到的人臉，預測用戶名稱與顯示信任程度
 <br>在此步驟中，新增了3個功能：
 <br>1.為避免辨識成功或失敗只是偶然，故增加程式碼紀錄成功或失敗次數，當達到一定次數才判定為成功或失敗
-<br>2.增加程式碼辨識失敗一定次數後，拍攝入侵者的照片，並記錄當下時間
-<br>3.增加蜂鳴器在辨識成功時發出Do-re-mi聲響[[4]](https://sites.google.com/site/zsgititit/home/raspberry-shu-mei-pai/raspberry-shi-yong-fengbuzzier)及辨識失敗時發出短鳴的程式碼
+<br>2.增加程式碼辨識失敗一定次數後，拍攝入侵者的照片，並記錄當下時間```cv2.imwrite('/home/pi/Desktop/STUDY/intruder/%s.jpg' % ptime,img) #if found instruder will take photo```
+<br>3.增加蜂鳴器在辨識成功時發出Do-re-mi聲響[[5]](https://sites.google.com/site/zsgititit/home/raspberry-shu-mei-pai/raspberry-shi-yong-fengbuzzier)及辨識失敗時發出短鳴的程式碼
 ```python
 import RPi.GPIO as GPIO
 import cv2
@@ -265,9 +265,13 @@ cv2.destroyAllWindows()
 ## 8. 影片呈現連結
 https://youtu.be/Sn16_KW4zAc
 ## 9. 可以改進或其他發想
-* 
+* 攝影機架設與Raspberry-Pi藏匿的方式可以再優化。
+* 因疫情因素公司車站管制，無法於車站執行現場測試，之後可至車站測試。
+* 因旅客曾反映目前票卡過閘感應失敗時的叫聲太大，因此在本專案設計時以不擾民之聲響為主，但可能會使現場人員未發現侵入者，故之後可以再做討論調整。
+* 依據規劃提供定期票旅客使用人臉辨識，每日都可能有當日新加入或需刪除名單，可思考自動更新訓練模型的方式
 ## 10.參考資料
-[1]https://github.com/kunalyelne/Face-Recognition-using-Raspberry-Pi
+[1]
 <br>[2]https://github.com/ch-tseng/PanTilt/blob/master/main.py
-<br>[3]https://www.twblogs.net/a/5db2cffebd9eee310d9fff12
-<br>[4]https://sites.google.com/site/zsgititit/home/raspberry-shu-mei-pai/raspberry-shi-yong-fengbuzzier
+<br>[3]https://github.com/kunalyelne/Face-Recognition-using-Raspberry-Pi
+<br>[4]https://www.twblogs.net/a/5db2cffebd9eee310d9fff12
+<br>[5]https://sites.google.com/site/zsgititit/home/raspberry-shu-mei-pai/raspberry-shi-yong-fengbuzzier
