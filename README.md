@@ -1,14 +1,14 @@
 # Face-Recognition-using-Raspberry-Pi
 for homework
 ## 1. 關於專案
-將鏡頭放在閘門入口，透過人臉辨識確認是否為已存取之人員，若確認為已存取人員將發出Do-re-me暗示可以通過，若辨識非存取人員則發出警告聲響，並拍照存取入侵者。
+將鏡頭放在閘門入口，透過人臉辨識確認是否為已存取之人員，若確認為已存取人員將發出Do-re-mi暗示可以通過，若辨識非存取人員則發出警告聲響，並拍照存取入侵者。
 
 ## 2. 專案緣由
 機場捷運近兩年來不斷推陳出新，引領軌道業先驅新增信用卡及行動支付感應支付，作為國家門面希望推出更加智慧化的人臉辨識功能，帶領台灣進步。
 
 ## 3. 專案構想
 人臉辨識因涉及隱私權，僅提供定期票購買旅客使用，可供旅客30、60、90、120日內搭乘使用，此方式可避免旅客定期票遺失、刷錯卡、一票多人共用等情形。
-<br>支付定期費用的旅客使用相機拍照後，將照片存取在資料庫中，當旅客欲搭乘捷運於出入口感應人臉，透過人臉辨識確認是否為已存取人員，若為存取人員則透過蜂鳴器發出do-re-me聲響，若非存取人員則發出告警聲響，並拍照存取入侵者頭像，可公布在車站避免旅客違規闖入。
+<br>支付定期費用的旅客使用相機拍照後，將照片存取在資料庫中，當旅客欲搭乘捷運於出入口感應人臉，透過人臉辨識確認是否為已存取人員，若為存取人員則透過蜂鳴器發出do-re-mi聲響，若非存取人員則發出告警聲響，並拍照存取入侵者頭像，可公布在車站避免旅客違規闖入。
 
 ![](pic/entrance.jpg)
 ## 4. 專案所需實體材料
@@ -156,7 +156,7 @@ print("\n [INFO] {0} faces trained. Exiting Program".format(len(np.unique(ids)))
 <br>在此步驟中，新增了3個功能：
 <br>1.為避免辨識成功或失敗只是偶然，故增加程式碼紀錄成功或失敗次數，當達到一定次數才判定為成功或失敗
 <br>2.增加程式碼辨識失敗一定次數後，拍攝入侵者的照片，並記錄當下時間
-<br>3.增加蜂鳴器在辨識成功時發出Do-re-me及辨識失敗時發出短鳴的程式碼
+<br>3.增加蜂鳴器在辨識成功時發出Do-re-mi聲響[[4]](https://sites.google.com/site/zsgititit/home/raspberry-shu-mei-pai/raspberry-shi-yong-fengbuzzier)及辨識失敗時發出短鳴的程式碼
 ```python
 import RPi.GPIO as GPIO
 import cv2
@@ -265,7 +265,9 @@ cv2.destroyAllWindows()
 ## 8. 影片呈現連結
 https://youtu.be/Sn16_KW4zAc
 ## 9. 可以改進或其他發想
+* 
 ## 10.參考資料
 [1]https://github.com/kunalyelne/Face-Recognition-using-Raspberry-Pi
 <br>[2]https://github.com/ch-tseng/PanTilt/blob/master/main.py
 <br>[3]https://www.twblogs.net/a/5db2cffebd9eee310d9fff12
+<br>[4]https://sites.google.com/site/zsgititit/home/raspberry-shu-mei-pai/raspberry-shi-yong-fengbuzzier
