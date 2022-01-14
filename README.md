@@ -119,6 +119,7 @@ print('finish')
 ```
 ### 第5步：模型訓練
 藉由已蒐集的數據集，訓練人臉辨識模型，並存取在```.yml```文件當中，供第6步驟人臉辨識使用
+<br>在跑程式時曾發生一個錯誤```module 'cv2.cv2' has no attribute 'face'```，經查詢後[[5]](https://blog.csdn.net/hopena/article/details/91350271)須先將OpenCV及OpenCV contrib卸載```pip uninstall opencv-contrib-python```、```pip uninstall opencv-python```，再重新執行下載```pip install opencv-python```、```pip install opencv-contrib-python```才能解決問題。
 ```python
 import cv2
 import numpy as np
@@ -157,7 +158,7 @@ print("\n [INFO] {0} faces trained. Exiting Program".format(len(np.unique(ids)))
 <br>在此步驟中，新增了3個功能：
 <br>1.為避免辨識成功或失敗只是偶然，故增加程式碼紀錄成功或失敗次數，當達到一定次數才判定為成功或失敗
 <br>2.增加程式碼辨識失敗一定次數後，拍攝入侵者的照片，並記錄當下時間```cv2.imwrite('/home/pi/Desktop/STUDY/intruder/%s.jpg' % ptime,img) #if found instruder will take photo```
-<br>3.增加蜂鳴器在辨識成功時發出Do-re-mi聲響[[5]](https://sites.google.com/site/zsgititit/home/raspberry-shu-mei-pai/raspberry-shi-yong-fengbuzzier)及辨識失敗時發出短鳴的程式碼
+<br>3.增加蜂鳴器在辨識成功時發出Do-re-mi聲響[[6]](https://sites.google.com/site/zsgititit/home/raspberry-shu-mei-pai/raspberry-shi-yong-fengbuzzier)及辨識失敗時發出短鳴[[7]](https://www.gushiciku.cn/pl/g7Iv/zh-tw)的程式碼
 ```python
 import RPi.GPIO as GPIO
 import cv2
@@ -275,4 +276,6 @@ https://youtu.be/Sn16_KW4zAc
 <br>[2]https://github.com/ch-tseng/PanTilt/blob/master/main.py
 <br>[3]https://github.com/kunalyelne/Face-Recognition-using-Raspberry-Pi
 <br>[4]https://www.twblogs.net/a/5db2cffebd9eee310d9fff12
-<br>[5]https://sites.google.com/site/zsgititit/home/raspberry-shu-mei-pai/raspberry-shi-yong-fengbuzzier
+<br>[5]https://blog.csdn.net/hopena/article/details/91350271
+<br>[6]https://sites.google.com/site/zsgititit/home/raspberry-shu-mei-pai/raspberry-shi-yong-fengbuzzier
+<br>[7]https://www.gushiciku.cn/pl/g7Iv/zh-tw
